@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crypto Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- HEADER (same as home) -->
+  <header class="header">
+    <h1 class="title" onclick="location.href='index.html'" style="cursor:pointer;">
+      CryptoStation
+    </h1>
+    <input type="text" placeholder="Search...">
+  </header>
+
+  <!-- MAIN DETAILS CARD (Kraken-style layout) -->
+  <div class="details-wrapper">
+
+    <div class="asset-card">
+
+      <!-- Top row: back + name -->
+      <div class="asset-header-row">
+        <span class="back-arrow" onclick="history.back()">←</span>
+        <h2 id="crypto-name" class="asset-name"></h2>
+      </div>
+
+      <!-- Price + 24h change -->
+      <div class="asset-price-row">
+        <span id="asset-price-big" class="asset-price-big"></span>
+        <span id="asset-change" class="asset-change"></span>
+      </div>
+
+      <!-- Chart -->
+      <div class="asset-chart">
+        <canvas id="priceChart"></canvas>
+      </div>
+
+      <!-- Stats rows under chart (labels left, values right) -->
+      <div class="asset-stats-grid">
+        <div class="stat-line">
+          <span class="stat-label">Market Cap:</span>
+          <span class="stat-value" id="stat-mcap"></span>
+        </div>
+        <div class="stat-line">
+          <span class="stat-label">Monthly High:</span>
+          <span class="stat-value" id="stat-high"></span>
+        </div>
+        <div class="stat-line">
+          <span class="stat-label">Monthly Low:</span>
+          <span class="stat-value" id="stat-low"></span>
+        </div>
+        <div class="stat-line">
+          <span class="stat-label">24h Change:</span>
+          <span class="stat-value" id="stat-change"></span>
+        </div>
+        <div class="stat-line">
+          <span class="stat-label">Last Updated:</span>
+          <span class="stat-value" id="stat-updated"></span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER (same as home) -->
+  <footer class="footer">
+    © 2025 CryptoStation — Built for WAD Project
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

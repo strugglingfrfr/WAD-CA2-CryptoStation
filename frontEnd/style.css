@@ -1,0 +1,385 @@
+/* clean dark background with green glow */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #081013;
+    color: #e6e6e6;
+    position: relative;
+
+    /* green web3 glow layers */
+    background-image:
+      radial-gradient(circle at 50% -20%, rgba(0,255,180,0.18), transparent 65%),
+      radial-gradient(circle at -20% 120%, rgba(0,220,160,0.14), transparent 70%),
+      radial-gradient(circle at 120% 40%, rgba(0,255,150,0.12), transparent 70%);
+}
+
+/* stronger visible grid lines */
+.background-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    /* clear grid color */
+    background-image:
+      linear-gradient(rgba(0,255,180,0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,180,0.12) 1px, transparent 1px);
+
+    /* smaller cell size = more visible */
+    background-size: 40px 40px;
+
+    opacity: 0.35;
+    z-index: -3;
+
+    /* visible slow movement */
+    animation: gridMove 30s linear infinite;
+}
+
+@keyframes gridMove {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(-80px,-40px); }
+}
+
+/* floating holographic particles */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    background-image: radial-gradient(rgba(0,255,160,0.17), transparent 60%);
+    background-size: 3px 3px;
+    opacity: 0.20;
+
+    animation: particles 14s linear infinite;
+    z-index: -2;
+}
+
+@keyframes particles {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-200px); }
+}
+
+/* container */
+.container {
+    width: 92%;
+    margin: 40px auto;
+    position: relative;
+    z-index: 5;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 30px;
+    background: #0f1719;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #123c33;
+    box-shadow: 0 0 16px rgba(0,255,170,0.18);
+}
+
+.title {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #45e8c4;
+}
+
+.header input {
+    padding: 10px 16px;
+    width: 260px;
+    border-radius: 8px;
+    background: #121a1c;
+    border: 1px solid #1f3a36;
+    color: white;
+}
+
+/* ticker */
+.ticker {
+    width: 100%;
+    overflow: hidden;
+    background: #0f1719;
+    border: 1px solid #123c33;
+    border-radius: 12px;
+    padding: 12px 0;
+    white-space: nowrap;
+    margin-bottom: 25px;
+    box-shadow: 0 0 14px rgba(0,255,170,0.20);
+}
+
+.ticker-track {
+    display: inline-flex;
+    gap: 60px;
+    padding-left: 100%;
+    animation: tickerMove 18s linear infinite;
+}
+
+.ticker-item {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+@keyframes tickerMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* carousel */
+.carousel {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+    margin-bottom: 30px;
+}
+
+.carousel-track {
+    display: flex;
+    width: max-content;
+    animation: slide 18s linear infinite;
+}
+
+.carousel-item {
+    width: 1000px;
+    height: 300px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 18px;
+    box-shadow: 0 0 22px rgba(0,255,170,0.22);
+}
+
+@keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-2000px); }
+}
+
+/* stats cards */
+.stats-section {
+    display: flex;
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    flex: 1;
+    padding: 25px;
+    border-radius: 14px;
+    background: #0f1719;
+    border: 1px solid #123c33;
+    transition: 0.3s ease;
+    box-shadow: 0 0 14px rgba(0,255,170,0.18);
+}
+
+.stat-card:hover {
+    box-shadow: 0 0 28px rgba(0,255,180,0.40);
+    transform: translateY(-4px);
+}
+
+.stat-card h3 {
+    margin: 0 0 6px 0;
+    color: #8eb4a8;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+    color: #41ffb0;
+}
+
+/* table */
+.table-section {
+    margin-top: 20px;
+}
+
+.glass {
+    background: rgba(10,20,22,0.55);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid rgba(0,255,160,0.18);
+    box-shadow: 0 0 16px rgba(0,255,140,0.22);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 22px;
+}
+
+th {
+    background: rgba(20,30,30,0.75);
+    color: #4cefc4;
+    text-align: left;
+}
+
+td {
+    border-bottom: 1px solid rgba(70,100,80,0.25);
+}
+
+tr:hover {
+    background: rgba(25,50,40,0.40);
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(0,255,160,0.25);
+    transition: 0.2s ease;
+}
+
+/* price colours */
+.green { color: #22ff99; }
+.red { color: #ff5c5c; }
+
+/* button */
+button {
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1fa87c, #25cba0);
+    color: white;
+    border: none;
+}
+
+/* footer */
+.footer {
+    margin-top: 40px;
+    padding: 22px;
+    text-align: center;
+    color: #6f8f80;
+    font-size: 13px;
+}
+
+/* CRYPTO DETAILS PAGE, KRAKEN-STYLE LAYOUT*/
+
+/* Outer wrapper so it lines up with home page width */
+.details-wrapper {
+    width: 92%;
+    margin: 30px auto 60px auto;
+}
+
+/* Single big glass card */
+.asset-card {
+    background: rgba(0, 0, 0, 0.26);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 255, 180, 0.18);
+    padding: 26px 30px 28px 30px;
+    backdrop-filter: blur(10px);
+    box-shadow:
+      0 0 25px rgba(0, 255, 180, 0.15),
+      inset 0 0 20px rgba(0, 0, 0, 0.45);
+}
+
+/* Top row: back + name */
+.asset-header-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.back-arrow {
+    color: #4cd4a8;
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.85;
+}
+
+.back-arrow:hover {
+    opacity: 1;
+}
+
+.asset-name {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #6bc6ff;
+}
+
+/* Price + 24h change row */
+.asset-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.asset-price-big {
+    font-size: 36px;
+    font-weight: 800;
+    color: #4cd4a8;
+}
+
+.asset-change {
+    font-size: 18px;
+}
+
+/* Chart wrapper */
+.asset-chart {
+    margin-top: 6px;
+    margin-bottom: 26px;
+}
+
+/* Canvas */
+#priceChart {
+    width: 100% !important;
+    height: 420px !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Stats rows under chart */
+.asset-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.stat-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(0, 255, 180, 0.12);
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-line:hover {
+    box-shadow: 0 0 14px rgba(0, 255, 180, 0.35);
+    border-color: rgba(0, 255, 200, 0.55);
+    transform: translateY(-2px);
+}
+
+.stat-label {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Up/down colouring reused */
+.green-text { color: #22ff99; }
+.red-text   { color: #ff5c5c; }
+
+/* Mobile stack for stats */
+@media (max-width: 900px) {
+    .asset-stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .asset-card {
+      padding: 22px 18px;
+    }
+}
