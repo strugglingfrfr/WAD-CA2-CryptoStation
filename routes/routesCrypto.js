@@ -56,5 +56,97 @@ router.get("/history/:id", async (req, res) => {
   }
 });
 
+// add a new crypto, After discussion with lecturer , user side add feature
+router.post("/cryptos", async (req, res) => {
+    try {
+      const { name, symbol, price, marketCap, monthlyHigh, monthlyLow } = req.body;
+  
+      // create the crypto
+      const newCrypto = await Crypto.create({
+        name,
+        symbol,
+        price,
+        marketCap,
+        monthlyHigh,
+        monthlyLow
+      });
+  
+      // generate simple price history (30 days) like i did in seed.js
+      const history = [];
+      let current = price * 0.95;
+  
+      for (let i = 30; i >= 1; i--) {
+        const change = (Math.random() * 6 - 3) / 100;
+        current = current + current * change;
+  
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+  
+        history.push({
+          cryptoId: newCrypto._id,
+          date: date,
+          price: parseFloat(current.toFixed(2))
+        });
+      }
+  
+      await PriceHistory.insertMany(history);
+  
+      res.json(newCrypto);
+  
+    } catch (err) {
+      console.error("Error adding crypto:", err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+  
 
+// update crypto details, user side sdit feature
+router.put("/cryptos/:id", async (req, res) => {
+    try {
+      const { price, marketCap, monthlyHigh, monthlyLow } = req.body;
+  
+      const updatedCrypto = await Crypto.findByIdAndUpdate(
+        req.params.id,
+        {
+          price,
+          marketCap,
+          monthlyHigh,
+          monthlyLow
+        },
+        { new: true }
+      );
+  
+      if (!updatedCrypto) {
+        return res.status(404).json({ message: "Crypto not found" });
+      }
+  
+      res.json(updatedCrypto);
+  
+    } catch (err) {
+      console.error("Error updating crypto:", err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+
+// delete crypto and its price history, user side delete feature
+router.delete("/cryptos/:id", async (req, res) => {
+    try {
+      const deletedCrypto = await Crypto.findByIdAndDelete(req.params.id);
+  
+      if (!deletedCrypto) {
+        return res.status(404).json({ message: "Crypto not found" });
+      }
+  
+      // also delete price history for this crypto
+      await PriceHistory.deleteMany({ cryptoId: req.params.id });
+  
+      res.json({ message: "Crypto deleted" });
+  
+    } catch (err) {
+      console.error("Error deleting crypto:", err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+  
+  
 module.exports = router;

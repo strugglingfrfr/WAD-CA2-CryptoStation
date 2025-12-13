@@ -64,7 +64,10 @@ function displayTable(list) {
         <td>$${c.price.toLocaleString()}</td>
         <td class="${changeClass}">${change}%</td>
         <td>$${c.marketCap.toLocaleString()}</td>
-        <td><button onclick="location.href='crypto.html?id=${c._id}'">View</button></td>
+        <td>
+          <button onclick="location.href='crypto.html?id=${c._id}'">View</button>
+          <button onclick="deleteCrypto('${c._id}')">Delete</button>
+        </td>
       </tr>
     `;
   });
@@ -306,3 +309,144 @@ async function loadCryptoDetails() {
         }
     });
 }
+
+// delete function to delete a crypto, has a confirmation pop up to make sure there is no accidental deletions 
+async function deleteCrypto(id) {
+    const confirmDelete = confirm("Are you sure you want to delete this crypto?");
+  
+    if (!confirmDelete) return;
+  
+    try {
+      await fetch(`/api/cryptos/${id}`, {
+        method: "DELETE"
+      });
+  
+      loadCryptoList(); // refresh table
+    } catch (err) {
+      console.log("error deleting crypto", err);
+    }
+  }
+
+// user side add crypto form function , only make viisble hen user preses add you crypto button 
+function openAddCrypto() {
+    document.getElementById("addCryptoModal").style.display = "flex";
+  }
+  
+  function closeAddCrypto() {
+    document.getElementById("addCryptoModal").style.display = "none";
+  }
+
+// handle add crypto form submit
+document.getElementById("add-crypto-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+  
+    const newCrypto = {
+      name: document.getElementById("name").value,
+      symbol: document.getElementById("symbol").value,
+      price: Number(document.getElementById("price").value),
+      marketCap: Number(document.getElementById("marketCap").value),
+      monthlyHigh: Number(document.getElementById("monthlyHigh").value),
+      monthlyLow: Number(document.getElementById("monthlyLow").value)
+    };
+  
+    try {
+      const res = await fetch("/api/cryptos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newCrypto)
+      });
+  
+      const savedCrypto = await res.json();
+  
+      // close modal
+      closeAddCrypto();
+  
+      // reset form
+      document.getElementById("add-crypto-form").reset();
+  
+      // re-fetch cryptos so table updates
+      loadCryptoList();
+
+    } catch (err) {
+      console.error("Error adding crypto:", err);
+    }
+  });
+  
+// user side edit functions , user can edit the market cap etc and that will also change in the db 
+//function to enable the editing mode
+ function enableEdit() {
+    // hide text values
+    document.getElementById("stat-mcap").style.display = "none";
+    document.getElementById("stat-high").style.display = "none";
+    document.getElementById("stat-low").style.display = "none";
+  
+    // show inputs
+    document.getElementById("edit-mcap").hidden = false;
+    document.getElementById("edit-high").hidden = false;
+    document.getElementById("edit-low").hidden = false;
+  
+    // prefill inputs with current values
+    document.getElementById("edit-mcap").value =
+      document.getElementById("stat-mcap").innerText.replace(/[$,]/g, "");
+  
+    document.getElementById("edit-high").value =
+      document.getElementById("stat-high").innerText.replace("$", "");
+  
+    document.getElementById("edit-low").value =
+      document.getElementById("stat-low").innerText.replace("$", "");
+  
+    // change button to save
+    const btn = document.getElementById("editBtn");
+    btn.innerText = "Save";
+    btn.onclick = saveEdit;
+  }
+
+//function to save the changes to backend
+  async function saveEdit() {
+    const updatedData = {
+      marketCap: Number(document.getElementById("edit-mcap").value),
+      monthlyHigh: Number(document.getElementById("edit-high").value),
+      monthlyLow: Number(document.getElementById("edit-low").value)
+    };
+  
+    try {
+      const res = await fetch(`/api/cryptos/${cryptoId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedData)
+      });
+  
+      const updated = await res.json();
+  
+      // update UI text
+      document.getElementById("stat-mcap").innerText =
+        `$${updated.marketCap.toLocaleString()}`;
+      document.getElementById("stat-high").innerText =
+        `$${updated.monthlyHigh}`;
+      document.getElementById("stat-low").innerText =
+        `$${updated.monthlyLow}`;
+  
+      // hide inputs
+      document.getElementById("edit-mcap").hidden = true;
+      document.getElementById("edit-high").hidden = true;
+      document.getElementById("edit-low").hidden = true;
+  
+      // show text again
+      document.getElementById("stat-mcap").style.display = "inline";
+      document.getElementById("stat-high").style.display = "inline";
+      document.getElementById("stat-low").style.display = "inline";
+  
+      // revert button
+      const btn = document.getElementById("editBtn");
+      btn.innerText = "Edit";
+      btn.onclick = enableEdit;
+  
+    } catch (err) {
+      console.log("error updating crypto", err);
+    }
+  }
+  

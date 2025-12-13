@@ -74,7 +74,7 @@ body::after {
     z-index: 5;
 }
 
-/* HEADER */
+/* header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -194,6 +194,108 @@ body::after {
     font-weight: bold;
     color: #41ffb0;
 }
+
+/* Add Your Own Crypto card/button */
+.add-crypto-section {
+    margin-bottom: 30px;
+}
+
+.add-crypto-btn {
+    width: 100%;
+    padding: 25px;
+    border-radius: 14px;
+
+    background: #0f1719;
+    border: 1px solid #123c33;
+    box-shadow: 0 0 16px rgba(0,255,170,0.18);
+
+    color: #45e8c4;
+    font-size: 28px;
+    font-weight: 1000;
+    text-align: center;
+
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.add-crypto-btn:hover {
+    box-shadow: 0 0 28px rgba(0,255,180,0.40);
+    transform: translateY(-4px);
+}
+
+
+/* Add your crypto form */
+.modal {
+    display: none;          
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+  }
+
+/* Add crypto modal form */
+.modal-content {
+    width: 420px;
+    padding: 30px 32px;
+    border-radius: 16px;
+    background: #0f1719;
+    border: 1px solid #123c33;
+    box-shadow: 0 0 28px rgba(0,255,170,0.25);
+    position: relative;
+}
+
+/* close button */
+.close-modal {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 22px;
+    color: #8eb4a8;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #45e8c4;
+}
+
+/* form layout */
+#add-crypto-form {
+    margin-top: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+/* inputs */
+#add-crypto-form input {
+    flex: 1;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #121a1c;
+    border: 1px solid #1f3a36;
+    color: #e6e6e6;
+    font-size: 14px;
+}
+
+#add-crypto-form input::placeholder {
+    color: #6f8f80;
+}
+
+/* submit button */
+#add-crypto-form button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+  
 
 /* table */
 .table-section {

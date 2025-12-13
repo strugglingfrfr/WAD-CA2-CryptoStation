@@ -30,7 +30,12 @@
       <div class="asset-price-row">
         <span id="asset-price-big" class="asset-price-big"></span>
         <span id="asset-change" class="asset-change"></span>
+        <!-- EDIT BUTTON -->
+       <button id="editBtn" class="edit-btn" onclick="enableEdit()">
+         Edit
+       </button>
       </div>
+      
 
       <!-- Chart -->
       <div class="asset-chart">
@@ -42,14 +47,17 @@
         <div class="stat-line">
           <span class="stat-label">Market Cap:</span>
           <span class="stat-value" id="stat-mcap"></span>
+          <input type="number" id="edit-mcap" class="edit-input" hidden />
         </div>
         <div class="stat-line">
           <span class="stat-label">Monthly High:</span>
           <span class="stat-value" id="stat-high"></span>
+          <input type="number" id="edit-high" class="edit-input" hidden />
         </div>
         <div class="stat-line">
           <span class="stat-label">Monthly Low:</span>
           <span class="stat-value" id="stat-low"></span>
+          <input type="number" id="edit-low" class="edit-input" hidden />
         </div>
         <div class="stat-line">
           <span class="stat-label">24h Change:</span>

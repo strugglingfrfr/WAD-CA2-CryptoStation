@@ -1,81 +1,142 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CryptoStation</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <title>CryptoStation</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
+    <div class="background-grid"></div>
+    <!-- background grid  to add texture-->
 
-  <div class="background-grid"></div> <!-- background grid -->
+    <div class="container">
+      <!-- HEADER -->
+      <header class="header">
+        <h1 class="title">CryptoStation</h1>
+        <input
+          type="text"
+          id="search"
+          placeholder="Search..."
+          onkeyup="searchCrypto()"
+        />
+      </header>
 
-  <div class="container">
-
-    <!-- HEADER -->
-    <header class="header">
-      <h1 class="title">CryptoStation</h1>
-      <input type="text" id="search" placeholder="Search..." onkeyup="searchCrypto()">
-    </header>
-
-    <!-- TICKER SECTION -->
-    <div class="ticker">
+      <!-- TICKER SECTION -->
+      <div class="ticker">
         <div class="ticker-track" id="ticker"></div>
+      </div>
+
+      <!-- CAROUSEL SECTION -->
+      <section class="carousel">
+        <div class="carousel-track">
+          <img src="Image1.jpg" class="carousel-item" />
+          <img src="Image2.jpg" class="carousel-item" />
+          <img src="Image3.jpg" class="carousel-item" />
+          <img src="Image4.jpg" class="carousel-item" />
+        </div>
+      </section>
+
+      <!-- STATS CARDS -->
+      <section class="stats-section">
+        <div class="stat-card">
+          <h3>Total Market Cap</h3>
+          <p id="total-mcap"></p>
+        </div>
+
+        <div class="stat-card">
+          <h3>Highest Price</h3>
+          <p id="highest-coin"></p>
+        </div>
+
+        <div class="stat-card">
+          <h3>Lowest Price</h3>
+          <p id="lowest-coin"></p>
+        </div>
+      </section>
+
+      <!-- ADD YOUR OWN CRYPTO SECTION -->
+      <section class="add-crypto-section">
+        <button class="add-crypto-btn" onclick="openAddCrypto()">
+            + Add Your Own Crypto Cryptocurrency
+        </button>          
+        <!-- ADD CRYPTO MODAL -->
+        <div id="addCryptoModal" class="modal">
+          <div class="modal-content glass">
+            <span class="close-modal" onclick="closeAddCrypto()">×</span>
+
+            <h3>Add New Cryptocurrency</h3>
+
+            <form id="add-crypto-form">
+              <div class="form-row">
+                <input type="text" id="name" placeholder="Coin Name" required />
+                <input type="text" id="symbol" placeholder="Symbol" required />
+              </div>
+
+              <div class="form-row">
+                <input
+                  type="number"
+                  id="price"
+                  placeholder="Price"
+                  step="any"
+                  required
+                />
+                <input
+                  type="number"
+                  id="marketCap"
+                  placeholder="Market Cap"
+                  step="any"
+                  required
+                />
+              </div>
+
+              <div class="form-row">
+                <input
+                  type="number"
+                  id="monthlyHigh"
+                  placeholder="Monthly High"
+                  step="any"
+                  required
+                />
+                <input
+                  type="number"
+                  id="monthlyLow"
+                  placeholder="Monthly Low"
+                  step="any"
+                  required
+                />
+              </div>
+
+              <button type="submit">Add Crypto</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- TABLE SECTION -->
+      <section class="table-section">
+        <div class="glass">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Coin</th>
+                <th>Price</th>
+                <th>24h Change</th>
+                <th>Market Cap</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="crypto-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        © 2025 CryptoStation — Built for WAD Project
+      </footer>
     </div>
-      
-    <!-- CAROUSEL SECTION -->
-    <section class="carousel">
-      <div class="carousel-track">
-        <img src="Image1.jpg" class="carousel-item">
-        <img src="Image2.jpg" class="carousel-item">
-        <img src="Image3.jpg" class="carousel-item">
-        <img src="Image4.jpg" class="carousel-item">
-      </div>
-    </section>
 
-    <!-- STATS CARDS -->
-    <section class="stats-section">
-      <div class="stat-card">
-        <h3>Total Market Cap</h3>
-        <p id="total-mcap"></p>
-      </div>
-
-      <div class="stat-card">
-        <h3>Highest Price</h3>
-        <p id="highest-coin"></p>
-      </div>
-
-      <div class="stat-card">
-        <h3>Lowest Price</h3>
-        <p id="lowest-coin"></p>
-      </div>
-    </section>
-
-    <!-- TABLE SECTION -->
-    <section class="table-section">
-      <div class="glass">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Coin</th>
-              <th>Price</th>
-              <th>24h Change</th>
-              <th>Market Cap</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="crypto-table"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      © 2025 CryptoStation — Built for WAD Project
-    </footer>
-
-  </div>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
